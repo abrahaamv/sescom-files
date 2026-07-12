@@ -1,0 +1,382 @@
+{
+  "tools": [
+    {
+      "name": "capture_lead",
+      "description": "Guarda información de contacto de un prospecto cuando la proporciona voluntariamente durante la conversación. NUNCA forzar la captura de datos — solo usar cuando el usuario comparte su nombre, teléfono o email de forma natural.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Nombre completo del prospecto"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Número de teléfono (cualquier formato, ej: +502 5555-1234)"
+          },
+          "email": {
+            "type": "string",
+            "description": "Correo electrónico"
+          },
+          "company": {
+            "type": "string",
+            "description": "Nombre de la empresa del prospecto"
+          },
+          "industry": {
+            "type": "string",
+            "description": "Sector/industria de la empresa (logística, seguridad, agricultura, manufactura, retail, construcción, etc.)"
+          },
+          "interest_divisions": {
+            "type": "array",
+            "items": { "type": "string", "enum": ["gps", "radios", "telemetria", "enlace_datos", "monitoreo", "solucion_integral"] },
+            "description": "Divisiones de SESCOM en las que el prospecto está interesado"
+          },
+          "fleet_size": {
+            "type": "integer",
+            "description": "Número de vehículos, radios o puntos de monitoreo mencionados"
+          },
+          "conversation_summary": {
+            "type": "string",
+            "description": "Resumen de 2-3 oraciones de lo que el prospecto necesita"
+          },
+          "urgency": {
+            "type": "string",
+            "enum": ["low", "medium", "high"],
+            "description": "Nivel de urgencia basado en señales de la conversación (menciones de plazos, emergencias, proyectos activos)"
+          }
+        },
+        "required": ["interest_divisions", "conversation_summary", "urgency"]
+      }
+    },
+    {
+      "name": "generate_quote_request",
+      "description": "Crea una solicitud formal de cotización cuando el prospecto ha identificado productos o servicios específicos con cantidades. NO usar para preguntas genéricas de precios — esas se responden directamente del catálogo.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "lead_id": {
+            "type": "string",
+            "description": "ID del lead si ya fue capturado previamente"
+          },
+          "division": {
+            "type": "string",
+            "enum": ["gps", "radios", "telemetria", "enlace_datos", "monitoreo", "integral"],
+            "description": "División principal de la cotización"
+          },
+          "products": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "product_type": {
+                  "type": "string",
+                  "description": "Tipo de producto o servicio (ej: gps_tracking, radio_portatil, sensor_temperatura, fibra_optica)"
+                },
+                "model": {
+                  "type": "string",
+                  "description": "Modelo específico si se identificó (ej: Kenwood TK-3000, Nexus NT450)"
+                },
+                "quantity": {
+                  "type": "integer",
+                  "description": "Cantidad requerida"
+                },
+                "specifications": {
+                  "type": "string",
+                  "description": "Especificaciones adicionales (ej: con sensor de combustible, IP67, con GPS)"
+                }
+              },
+              "required": ["product_type", "quantity"]
+            },
+            "description": "Lista de productos/servicios con cantidades"
+          },
+          "requirements": {
+            "type": "string",
+            "description": "Resumen de requerimientos en texto libre"
+          },
+          "timeline": {
+            "type": "string",
+            "description": "Plazo deseado de implementación (ej: 'dentro de 2 meses', 'urgente', 'para Q1 2027')"
+          },
+          "budget_indication": {
+            "type": "string",
+            "description": "Indicación de presupuesto si fue mencionado"
+          },
+          "delivery_method": {
+            "type": "string",
+            "enum": ["whatsapp", "email", "both"],
+            "description": "Cómo desea recibir la cotización"
+          }
+        },
+        "required": ["division", "products", "requirements"]
+      }
+    },
+    {
+      "name": "schedule_demo",
+      "description": "Agenda una demostración de producto, visita técnica o consulta con un asesor de SESCOM. Usar cuando el prospecto muestra interés genuino de compra o solicita ver la plataforma en acción.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "lead_id": {
+            "type": "string",
+            "description": "ID del lead si ya fue capturado"
+          },
+          "demo_type": {
+            "type": "string",
+            "enum": ["platform_demo", "site_visit", "radio_demo", "free_diagnostic", "general_consultation"],
+            "description": "Tipo de demostración: demo de plataforma (remota 30min), visita técnica en sitio, demo de radios en showroom, diagnóstico gratuito, o consulta general"
+          },
+          "division": {
+            "type": "string",
+            "enum": ["gps", "radios", "telemetria", "enlace_datos", "monitoreo", "integral"],
+            "description": "División principal para la demo"
+          },
+          "preferred_dates": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Fechas/horarios preferidos (texto libre, ej: 'martes por la mañana', 'próxima semana')"
+          },
+          "location": {
+            "type": "string",
+            "description": "Ubicación para visitas en sitio (dirección o zona)"
+          },
+          "attendees": {
+            "type": "integer",
+            "description": "Número de personas que asistirán"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Qué específicamente quieren ver o resolver en la demo"
+          }
+        },
+        "required": ["demo_type", "division", "notes"]
+      }
+    },
+    {
+      "name": "escalate_to_whatsapp",
+      "description": "Transfiere la conversación a un asesor humano de SESCOM vía WhatsApp, enviando el contexto completo de la conversación. Usar cuando: el usuario pide hablar con un humano, el proyecto es grande/complejo, hay preguntas técnicas fuera del conocimiento del bot, o se necesita negociación de precios.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "reason": {
+            "type": "string",
+            "enum": ["complex_quote", "urgent_need", "technical_question", "user_requested", "large_project"],
+            "description": "Razón de la escalación"
+          },
+          "division": {
+            "type": "string",
+            "enum": ["gps", "radios", "telemetria", "enlace_datos", "monitoreo", "general"],
+            "description": "División relevante para asignar al asesor correcto"
+          },
+          "conversation_summary": {
+            "type": "string",
+            "description": "Resumen completo de lo discutido en la conversación para que el asesor tenga contexto"
+          },
+          "prospect_info": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "phone": { "type": "string" },
+              "company": { "type": "string" },
+              "email": { "type": "string" }
+            },
+            "description": "Información del prospecto recopilada durante la conversación"
+          },
+          "specific_questions": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Preguntas específicas que el asesor debe resolver"
+          }
+        },
+        "required": ["reason", "division", "conversation_summary"]
+      }
+    },
+    {
+      "name": "compare_products",
+      "description": "Genera una tabla comparativa side-by-side de 2-4 productos de SESCOM para ayudar al prospecto a elegir. Incluye precio (donde esté disponible), especificaciones técnicas y recomendación personalizada según el caso de uso.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "products": {
+            "type": "array",
+            "items": { "type": "string" },
+            "minItems": 2,
+            "maxItems": 4,
+            "description": "Modelos o categorías a comparar (ej: ['kenwood-tk3000', 'nexus-nt400'] o ['fibra_optica', 'inalambrico_solar'])"
+          },
+          "focus_aspects": {
+            "type": "array",
+            "items": { "type": "string", "enum": ["price", "range", "durability", "features", "power", "channels", "ip_rating", "battery", "speed", "sla"] },
+            "description": "Aspectos específicos a destacar en la comparación"
+          },
+          "use_case": {
+            "type": "string",
+            "description": "Caso de uso del prospecto para personalizar la recomendación (ej: 'seguridad en edificios', 'finca agrícola', 'flota de distribución')"
+          }
+        },
+        "required": ["products"]
+      }
+    },
+    {
+      "name": "check_coverage",
+      "description": "Verifica la disponibilidad de cobertura de servicios SESCOM en una ubicación específica de Guatemala o El Salvador. Útil cuando el prospecto pregunta si SESCOM llega a su zona de operación.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "location": {
+            "type": "string",
+            "description": "Ciudad, departamento o área específica (ej: 'Petén', 'Quetzaltenango zona 3', 'carretera a Cobán')"
+          },
+          "service_type": {
+            "type": "string",
+            "enum": ["gps", "radio_repeater", "data_link", "telemetry", "monitoring", "all"],
+            "description": "Tipo de servicio a verificar"
+          },
+          "details": {
+            "type": "string",
+            "description": "Contexto adicional (ej: 'zona rural sin electricidad', 'edificio de oficinas 10 pisos', 'carretera interurbana')"
+          }
+        },
+        "required": ["location", "service_type"]
+      }
+    },
+    {
+      "name": "calculate_roi",
+      "description": "Calcula el retorno de inversión estimado para una solución SESCOM basándose en los costos operativos actuales del prospecto. Genera números concretos de ahorro que ayudan a justificar la inversión internamente.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "solution_type": {
+            "type": "string",
+            "enum": ["gps_fuel_control", "gps_fleet_tracking", "radio_replacement", "monitoring_center", "telemetry", "integrated"],
+            "description": "Tipo de solución para calcular ROI"
+          },
+          "fleet_size": {
+            "type": "integer",
+            "description": "Número de vehículos (para GPS)"
+          },
+          "current_fuel_cost_monthly": {
+            "type": "number",
+            "description": "Gasto mensual actual en combustible en Quetzales (para GPS fuel control)"
+          },
+          "current_security_guards": {
+            "type": "integer",
+            "description": "Número actual de guardias de seguridad (para centro de monitoreo)"
+          },
+          "guard_monthly_cost": {
+            "type": "number",
+            "description": "Costo mensual por guardia en Quetzales (para centro de monitoreo)"
+          },
+          "current_downtime_hours_monthly": {
+            "type": "number",
+            "description": "Horas de inactividad no planificada al mes (para telemetría)"
+          },
+          "downtime_cost_per_hour": {
+            "type": "number",
+            "description": "Costo por hora de inactividad en Quetzales (para telemetría)"
+          },
+          "current_communication_cost_monthly": {
+            "type": "number",
+            "description": "Gasto mensual actual en comunicaciones/celulares en Quetzales (para radios)"
+          },
+          "num_users": {
+            "type": "integer",
+            "description": "Número de usuarios de comunicación (para radios)"
+          }
+        },
+        "required": ["solution_type"]
+      }
+    },
+    {
+      "name": "search_knowledge_base",
+      "description": "Busca información detallada en la base de conocimiento completa de SESCOM. Usar para preguntas técnicas muy específicas que van más allá del system prompt, como especificaciones exactas de un sensor, compatibilidad de un modelo específico, o detalles de un caso de éxito.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "La pregunta o tema a buscar"
+          },
+          "division": {
+            "type": "string",
+            "enum": ["gps", "radios", "telemetria", "enlace_datos", "monitoreo", "empresa", "all"],
+            "description": "Limitar la búsqueda a una división específica"
+          },
+          "content_type": {
+            "type": "string",
+            "enum": ["faq", "specs", "case_study", "pricing", "general"],
+            "description": "Tipo de contenido a buscar"
+          }
+        },
+        "required": ["query"]
+      }
+    },
+    {
+      "name": "send_brochure",
+      "description": "Envía un folleto digital o ficha técnica de producto al prospecto por WhatsApp o email. Útil cuando el prospecto quiere información detallada para compartir con su equipo o para tomar una decisión.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "division": {
+            "type": "string",
+            "enum": ["gps", "radios", "telemetria", "enlace_datos", "monitoreo", "corporativo"],
+            "description": "División del brochure a enviar"
+          },
+          "product": {
+            "type": "string",
+            "description": "Producto específico si aplica (ej: 'Kenwood NX-3320', 'sistema de telemetría')"
+          },
+          "delivery_channel": {
+            "type": "string",
+            "enum": ["whatsapp", "email"],
+            "description": "Canal de envío"
+          },
+          "recipient": {
+            "type": "string",
+            "description": "Número de WhatsApp o email del destinatario"
+          }
+        },
+        "required": ["division", "delivery_channel", "recipient"]
+      }
+    },
+    {
+      "name": "recommend_integrated_solution",
+      "description": "Analiza las necesidades del prospecto y recomienda una solución integrada que combine múltiples divisiones de SESCOM. Esta es la herramienta MÁS ESTRATÉGICA porque demuestra el valor único de SESCOM: ser el ÚNICO proveedor en Guatemala con las 5 divisiones bajo un mismo techo. Usar cuando las necesidades del prospecto cruzan 2 o más divisiones.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "industry": {
+            "type": "string",
+            "description": "Industria del prospecto (logística, seguridad, agricultura, manufactura, retail, construcción, minería, banca, gobierno, etc.)"
+          },
+          "pain_points": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Problemas o necesidades mencionados por el prospecto (ej: ['sin comunicación en campo', 'robo de combustible', 'no puedo ver mis cámaras remotamente'])"
+          },
+          "current_solutions": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Soluciones actuales del prospecto (ej: ['celulares personales', 'guardias de seguridad', 'internet de Tigo'])"
+          },
+          "locations": {
+            "type": "integer",
+            "description": "Número de sucursales, sitios o locales"
+          },
+          "employees_in_field": {
+            "type": "integer",
+            "description": "Número de empleados en campo que necesitan comunicación"
+          },
+          "vehicles": {
+            "type": "integer",
+            "description": "Tamaño de flota vehicular"
+          },
+          "budget_range": {
+            "type": "string",
+            "description": "Rango de presupuesto si fue mencionado"
+          }
+        },
+        "required": ["industry", "pain_points"]
+      }
+    }
+  ]
+}

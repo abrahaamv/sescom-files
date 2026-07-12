@@ -1,0 +1,27 @@
+=== Sending: 1 ===
+{"reply":"¡Hola! 👋 Bienvenido al Asistente Virtual de **SESCOM Guatemala**.\n\nEstoy aquí para ayudarte con todo lo relacionado a **GPS y Rastreo**. ¿En qué puedo ayudarte hoy?","estado":"CONVERSACION"}
+
+=== Sending: ¿Dónde están ubicados? ===
+{"reply":"Estamos ubicados en **Ciudad de Guatemala**. 📍\n\nPara darte la dirección exacta o coordinar una visita, te recomiendo contactar directamente a nuestro equipo — ellos pueden orientarte según tu zona. ¿Hay algo más en lo que pueda ayudarte sobre nuestras soluciones de **GPS y Rastreo**? 😊","estado":"CONVERSACION"}
+
+=== Sending: ¿Cuál es su horario de atención? ===
+{"reply":"Esa información no la manejo desde aquí, pero nuestro equipo de ventas puede confirmarte el horario de atención sin problema. 😊\n\nLo que sí puedo hacer es ayudarte a explorar nuestras soluciones de **GPS y Rastreo** para que llegues bien informado cuando los contactes. ¿Tienes alguna necesidad específica con tu flota o vehículos?","estado":"CONVERSACION"}
+
+=== Sending: ¿Atienden empresas pequeñas? ===
+{"reply":"¡Por supuesto! 😊 SESCOM atiende empresas de **todos los tamaños**, desde negocios pequeños hasta grandes corporativos como Coca-Cola, Bimbo y Bantrab.\n\nSi tienes una flota pequeña, podemos encontrar la solución de GPS que se ajuste a tu operación y presupuesto. ¿Cuántos vehículos aproximadamente necesitarías rastrear?\n\nPara que nuestro equipo de GPS y Rastreo pueda darte información más detallada, ¿me puedes compartir tu nombre y número de teléfono?","estado":"ESPERANDO_CONTACTO"}
+
+=== Sending: ¿Tienen presencia en El Salvador? ===
+{"reply":"Gracias por tu número. ¿Me puedes decir tu nombre?","estado":"ESPERANDO_CONTACTO"}
+
+=== Sending: ¿Qué clientes importantes tienen? ===
+{"reply":"Gracias por tu número. ¿Me puedes decir tu nombre?","estado":"ESPERANDO_CONTACTO"}
+
+=== Sending: ¿Cuántos años tienen en el mercado? ===
+{"reply":"¡Tenemos **34 años** de experiencia en el mercado guatemalteco! 🎉\n\nSomos líderes en comunicaciones y tecnología para operaciones críticas, lo que nos da una base sólida para respaldar tu operación con soporte local confiable. ¿Te gustaría saber más sobre nuestras soluciones de GPS y Rastreo?\n\nPor cierto, ¿me puedes compartir tu nombre y número de teléfono para que nuestro equipo te contacte?","estado":"ESPERANDO_CONTACTO"}
+
+=== Sending: ¿Dan capacitación? ===
+{"reply":"Gracias, ¿dan Capacitación?. ¿Y tu número de teléfono?","estado":"ESPERANDO_CONTACTO"}
+
+=== Sending: ¿Tienen servicio postventa? ===
+{"reply":"Gracias, ¿dan Capacitación?. ¿Y tu número de teléfono?","estado":"ESPERANDO_CONTACTO"}
+

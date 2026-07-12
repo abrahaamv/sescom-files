@@ -1,0 +1,15 @@
+=== Sending: monitoreo ===
+{"reply":"Por favor escribe el número o nombre del área:\n\n1️⃣  GPS y Rastreo Vehicular\n2️⃣  Radios y Comunicaciones\n3️⃣  Sistemas de Telemetría\n4️⃣  Enlace de Datos","estado":"AREA"}
+
+=== Sending: 5 ===
+{"reply":"Por favor escribe el número o nombre del área:\n\n1️⃣  GPS y Rastreo Vehicular\n2️⃣  Radios y Comunicaciones\n3️⃣  Sistemas de Telemetría\n4️⃣  Enlace de Datos","estado":"AREA"}
+
+=== Sending: monitoreo corporativo ===
+{"reply":"Por favor escribe el número o nombre del área:\n\n1️⃣  GPS y Rastreo Vehicular\n2️⃣  Radios y Comunicaciones\n3️⃣  Sistemas de Telemetría\n4️⃣  Enlace de Datos","estado":"AREA"}
+
+=== Sending: 1 ===
+{"reply":"¡Hola! 👋 Bienvenido al Asistente Virtual de **SESCOM Guatemala**.\n\nEstoy aquí para ayudarte con todo lo relacionado a **GPS y Rastreo vehicular**. ¿En qué puedo ayudarte hoy?","estado":"CONVERSACION"}
+
+=== Sending: ¿Qué es el centro de monitoreo corporativo? ===
+{"reply":"Es una pregunta interesante, pero el **Centro de Monitoreo Corporativo** no es un servicio que maneje directamente SESCOM Guatemala, por lo que no tengo información específica sobre ese término.\n\nLo que sí puedo contarte es que SESCOM ofrece soluciones de **GPS y Rastreo** que incluyen:\n\n- 📍 **Monitoreo en tiempo real** de tu flota desde cualquier dispositivo\n- 🗺️ **Geofencing y alertas** automáticas\n- ⛽ **Control de combustible** con sensores de precisión\n- 📹 **Video Telemática** con cámaras integradas\n- 🔧 **Mantenimiento preventivo** inteligente\n\n¿Hay alguna de estas soluciones sobre la que quieras saber más, o tienes alguna necesidad específica con tu flota? 🚛","estado":"CONVERSACION"}
+
